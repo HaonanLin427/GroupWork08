@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private float walkSpeed = 4;
+
+    private PlayerControls playerControls;
+
+
     void Start()
     {
-        
+        playerControls = new();
+        playerControls.Walk.Enable();
+        playerControls.Walk.Direction1.Enable();
     }
 
-    // Update is called once per frame
+    private void OnDestroy()
+    {
+        playerControls.Walk.Direction1.Disable();
+        playerControls.Walk.Disable();
+    }
+
     void Update()
     {
-        
+        Vector2 direction2d = playerControls.Walk.Direction1.ReadValue<Vector2>();
+        Vector3 direction3d = new(direction2d.x, 0, direction2d.y);
+        transform.Translate(direction3d * Time.deltaTime * walkSpeed);
     }
 }
