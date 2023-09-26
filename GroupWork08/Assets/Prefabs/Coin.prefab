@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 90
+  score: 1
 --- !u!54 &8249734439398909099
 Rigidbody:
   m_ObjectHideFlags: 0
