@@ -8,7 +8,11 @@ public class ScoreKeeper : MonoBehaviour
     [SerializeField] private const int CoinScore = 1;
     private UIManager uiManager;
     // Start is called before the first frame update
+<<<<<<< Updated upstream
     private void awake() 
+=======
+    private void awake()
+>>>>>>> Stashed changes
     {
         uiManager = FindObjectOfType<UIManager>();
     }
