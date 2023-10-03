@@ -5,36 +5,28 @@ using UnityEngine.InputSystem;
 
 public class ScoreKeeper : MonoBehaviour
 {
-    [SerializeField] private const int CoinScore = 1;
-    private UIManager uiManager;
-    // Start is called before the first frame update
-    private void awake
-    {
-        uiManager = FindObjectOfType<UIManager>();
-    }
+    private static ScoreKeeper instance;
+    public static ScoreKeeper Instance => instance;
 
-private void OnTriggerEnter2D(Collider2D collider)
-{
-    if (collider.CompareTag("Coin"))
+    [SerializeField] private int pointsPerPickup = 1;
+
+    private int currentScore;
+    public int CurrentScore => currentScore;
+
+    private void Awake()
     {
-        // Destroy coins
-        Destroy(collider.gameObject);
-        if (uiManager != null)
+        if(instance == null)
         {
-            uiManager.UpdateCurrentScore(CoinScore);
+            instance = this;
         }
-        // and gain scores from coins
-        // it links to the UI manager and gain score by using the method in UpdateCurrentScore
-    }
-}
-    void Start()
-    {
-        
+        else if(instance != this)
+        {
+            Destroy(this);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void IncreaseScore()
     {
-        
+        currentScore += pointsPerPickup;
     }
 }
