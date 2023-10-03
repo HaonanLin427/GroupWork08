@@ -6,10 +6,12 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI currentScoreCounter;
+    [SerializeField] private TextMeshProUGUI player1Score;
+    [SerializeField] private TextMeshProUGUI player2Score;
 
     void Update()
     {
-        currentScoreCounter.text = string.Format("Current Score: {0,03}", ScoreKeeper.Instance.CurrentScore);
+        player1Score.text = string.Format("Player 1: {0}", ScoreKeeper.Instance.Player1Score);
+        player2Score.text = string.Format("Player 2: {0}", ScoreKeeper.Instance.Player2Score);
     }
 }
