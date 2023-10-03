@@ -35,6 +35,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Direction2"",
+                    ""type"": ""Value"",
+                    ""id"": ""e5f74977-880e-4a7e-a74b-8e5008a13ad0"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,61 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Direction1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""45c93629-8567-4996-94b0-be152ecdea47"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Direction2"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""0d3fc671-4423-4bce-b9cc-c3f7d02a4bb0"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Direction2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""fd227161-8bb7-4863-84ac-7839ba11ce7b"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Direction2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""dfef980d-0a59-402d-a657-8973c7399ac0"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Direction2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""38ca0d12-760d-4f48-b4ee-e5f2b608a417"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Direction2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -101,6 +165,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         // Walk
         m_Walk = asset.FindActionMap("Walk", throwIfNotFound: true);
         m_Walk_Direction1 = m_Walk.FindAction("Direction1", throwIfNotFound: true);
+        m_Walk_Direction2 = m_Walk.FindAction("Direction2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,11 +226,13 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Walk;
     private IWalkActions m_WalkActionsCallbackInterface;
     private readonly InputAction m_Walk_Direction1;
+    private readonly InputAction m_Walk_Direction2;
     public struct WalkActions
     {
         private @PlayerControls m_Wrapper;
         public WalkActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Direction1 => m_Wrapper.m_Walk_Direction1;
+        public InputAction @Direction2 => m_Wrapper.m_Walk_Direction2;
         public InputActionMap Get() { return m_Wrapper.m_Walk; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -178,6 +245,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Direction1.started -= m_Wrapper.m_WalkActionsCallbackInterface.OnDirection1;
                 @Direction1.performed -= m_Wrapper.m_WalkActionsCallbackInterface.OnDirection1;
                 @Direction1.canceled -= m_Wrapper.m_WalkActionsCallbackInterface.OnDirection1;
+                @Direction2.started -= m_Wrapper.m_WalkActionsCallbackInterface.OnDirection2;
+                @Direction2.performed -= m_Wrapper.m_WalkActionsCallbackInterface.OnDirection2;
+                @Direction2.canceled -= m_Wrapper.m_WalkActionsCallbackInterface.OnDirection2;
             }
             m_Wrapper.m_WalkActionsCallbackInterface = instance;
             if (instance != null)
@@ -185,6 +255,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Direction1.started += instance.OnDirection1;
                 @Direction1.performed += instance.OnDirection1;
                 @Direction1.canceled += instance.OnDirection1;
+                @Direction2.started += instance.OnDirection2;
+                @Direction2.performed += instance.OnDirection2;
+                @Direction2.canceled += instance.OnDirection2;
             }
         }
     }
@@ -192,5 +265,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     public interface IWalkActions
     {
         void OnDirection1(InputAction.CallbackContext context);
+        void OnDirection2(InputAction.CallbackContext context);
     }
 }
