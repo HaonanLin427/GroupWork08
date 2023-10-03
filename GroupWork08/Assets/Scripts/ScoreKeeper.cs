@@ -10,8 +10,10 @@ public class ScoreKeeper : MonoBehaviour
 
     [SerializeField] private int pointsPerPickup = 1;
 
-    private int currentScore;
-    public int CurrentScore => currentScore;
+    private int player1Score;
+    public int Player1Score => player1Score;
+    private int player2Score;
+    public int Player2Score => player2Score;
 
     private void Awake()
     {
@@ -25,8 +27,15 @@ public class ScoreKeeper : MonoBehaviour
         }
     }
 
-    public void IncreaseScore()
+    public void IncreaseScore(bool isPlayer1)
     {
-        currentScore += pointsPerPickup;
+        if(isPlayer1)
+        {
+            player1Score += pointsPerPickup;
+        }
+        else
+        {
+            player2Score += pointsPerPickup;
+        }
     }
 }

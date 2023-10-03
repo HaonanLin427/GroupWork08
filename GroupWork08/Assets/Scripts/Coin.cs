@@ -16,7 +16,7 @@ public class Coin : MonoBehaviour
         if(other.TryGetComponent<Player>(out var player))
         {
             Destroy(gameObject);
-            ScoreKeeper.Instance.IncreaseScore();
+            ScoreKeeper.Instance.IncreaseScore(player.IsPlayer1);
         }
     }
 }
