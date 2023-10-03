@@ -6,24 +6,12 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public TextMeshProUGUI currentScoreCounter;
-    private int currentScoreCount = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        currentScoreCounter.text = string.Format("CurrentScore:{0}", currentScoreCount);
-    }
+    [SerializeField] private TextMeshProUGUI player1Score;
+    [SerializeField] private TextMeshProUGUI player2Score;
 
-    // There is no score detail in this script, need to add it into the script of coin and link with UIManager in that script.
-
-    public void UpdateCurrentScore(int Score)
-    {
-        currentScoreCount += Score;
-        currentScoreCounter.text = string.Format("CurrentScore:{0}", currentScoreCount);
-       
-    }
     void Update()
     {
-        
+        player1Score.text = string.Format("Player 1: {0}", ScoreKeeper.Instance.Player1Score);
+        player2Score.text = string.Format("Player 2: {0}", ScoreKeeper.Instance.Player2Score);
     }
 }

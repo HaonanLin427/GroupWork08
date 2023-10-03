@@ -10,4 +10,13 @@ public class Coin : MonoBehaviour
     {
         transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed, Space.World);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.TryGetComponent<Player>(out var player))
+        {
+            Destroy(gameObject);
+            ScoreKeeper.Instance.IncreaseScore(player.IsPlayer1);
+        }
+    }
 }
